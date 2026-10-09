@@ -25,6 +25,10 @@ The app generates:
 - **`out_figs/digitized_head_points_3d.png`**: 3D scatter plot of digitized head points, produced when digitized head points are available
 - **`product.json`**: structured summary of channel types, sampling rate, duration, filters and projectors, with the figures above embedded for display in the Brainlife.io interface
 
+## Configuration Parameters
+
+This app reads no configuration parameters beyond its input file (see Inputs above).
+
 ## Usage
 
 ### Running on Brainlife.io
