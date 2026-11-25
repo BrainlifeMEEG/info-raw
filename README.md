@@ -1,5 +1,37 @@
 # Create an info text file
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Reads the measurement info of an MNE-Python Raw MEG/EEG file and writes it to info.txt, with a summary of acquisition parameters and 2D/3D sensor and head-point plots.**
+
+Utility that loads an MNE raw .fif file, writes the full raw.info to a text file and adds to the brainlife product the channel types, sampling frequency and other key parameters, plus 2D montage, 3D electrode and digitised head-point figures when positions are available. Use it to inspect a recording's metadata before choosing preprocessing settings. It does not modify the data.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/meeg/mne/raw` |
+| 📤 **Outputs** | `neuro/meg/fif-override` |
+| 🐳 **Container** | `brainlifemeeg/mne:1.12.1` |
+| ⚙️ **Resources** | 1 CPUs |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.817](https://doi.org/10.25663/brainlife.app.817) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `raw` | `neuro/meeg/mne/raw` | yes | Continuous MEG/EEG recording in MNE raw .fif format. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `out_dir` | `neuro/meg/fif-override` | info.txt with the text dump of the raw data info attribute. |
+
+📚 **References used by this App:**
+- Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+- Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013). [doi:10.3389/fnins.2013.00267](https://doi.org/10.3389/fnins.2013.00267)
+
+<!-- brainlife-app:end -->
+
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.817-blue.svg)](https://doi.org/10.25663/brainlife.app.817)
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 
