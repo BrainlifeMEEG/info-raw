@@ -1,72 +1,110 @@
-# Create an info text file
+<h1 align="center">Read info</h1>
 
-[![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.817-blue.svg)](https://doi.org/10.25663/brainlife.app.817)
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
+<p align="center">
+  Reads the measurement info of an MNE-Python Raw MEG/EEG file and writes it to info.txt, with a summary of acquisition parameters and 2D/3D sensor and head-point plots.
+</p>
 
-## Description
+<p align="center">
+  <a href="https://github.com/brainlife/abcd-spec"><img src="https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg" alt="ABCD Spec v1.1"></a>
+  <a href="https://doi.org/10.25663/brainlife.app.817"><img src="https://img.shields.io/badge/Brainlife-brainlife.app.817-blue.svg" alt="Run on brainlife.io"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-see_LICENSE-lightgrey.svg" alt="License"></a>
+</p>
 
-This Brainlife.io app reads the `.info` attribute of an MNE `Raw` object and writes it to a text file for easy viewing. It also summarizes key acquisition parameters (channel types, sampling frequency, duration, digitized head points, filter settings, projectors) and, when channel positions or digitized head points are available, renders them with `raw.plot_sensors()` and simple 3D scatter plots for visual inspection in the Brainlife.io interface.
+## At a glance
 
-The app generates:
-- A text dump of the raw data's `.info` attribute
-- A 2D electrode montage plot (when channel positions are available)
-- 3D scatter plots of electrode positions and digitized head points (when available)
-- A `product.json` summary of key acquisition parameters, with the figures above embedded
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
-## Inputs
+> **Reads the measurement info of an MNE-Python Raw MEG/EEG file and writes it to info.txt, with a summary of acquisition parameters and 2D/3D sensor and head-point plots.**
 
-- **`raw`** (`neuro/meeg/mne/raw`): continuous MEG/EEG data whose `.info` attribute is read (required)
+Utility that loads an MNE raw .fif file, writes the full raw.info to a text file and adds to the brainlife product the channel types, sampling frequency and other key parameters, plus 2D montage, 3D electrode and digitised head-point figures when positions are available. Use it to inspect a recording's metadata before choosing preprocessing settings. It does not modify the data.
 
-## Outputs
+| | |
+|---|---|
+| **Inputs** | `neuro/meeg/mne/raw` |
+| **Outputs** | `neuro/meg/fif-override` |
+| **Container** | `brainlifemeeg/mne:1.12.1` |
+| **Resources** | 1 CPUs |
+| **Run it** | [doi.org/10.25663/brainlife.app.817](https://doi.org/10.25663/brainlife.app.817) |
 
-- **`out_dir/info.txt`** (`neuro/meg/fif-override`, tag `info`): text dump of the raw data's `.info` attribute
-- **`out_figs/montage_2d.png`**: 2D electrode montage plot, produced when channel positions are available
-- **`out_figs/electrodes_3d.png`**: 3D scatter plot of electrode positions, produced when channel positions are available
-- **`out_figs/digitized_head_points_3d.png`**: 3D scatter plot of digitized head points, produced when digitized head points are available
-- **`product.json`**: structured summary of channel types, sampling rate, duration, filters and projectors, with the figures above embedded for display in the Brainlife.io interface
+#### Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `raw` | `neuro/meeg/mne/raw` | yes | Continuous MEG/EEG recording in MNE raw .fif format. |
+
+#### Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `out_dir` | `neuro/meg/fif-override` | info.txt with the text dump of the raw data info attribute. |
+
+<!-- brainlife-app:end -->
+
+## Running the App
+
+### On brainlife.io
+
+Open the App at [doi.org/10.25663/brainlife.app.817](https://doi.org/10.25663/brainlife.app.817), choose `neuro/meeg/mne/raw` from your project and press **Execute**. The results are saved to your project as `neuro/meg/fif-override`.
+
+### Locally
+
+You need [Singularity/Apptainer](https://apptainer.org/) (the App runs in `brainlifemeeg/mne:1.12.1`), [`jq`](https://jqlang.github.io/jq/).
+
+1. Clone this repository.
+2. Create `config.json` with the paths to your inputs and the parameters:
+
+   ```json
+   {
+       "raw": "/path/to/raw/raw"
+   }
+   ```
+
+3. Run `./main`.
 
 ## Configuration Parameters
 
 This app reads no configuration parameters beyond its input file (see Inputs above).
 
-## Usage
-
-### Running on Brainlife.io
-
-1. Select your MEG/EEG raw dataset as the `raw` input.
-2. Submit the process.
-3. Inspect `info.txt`, the generated figures, and the `product.json` summary in the process viewer.
-
-### Local Testing
+## Local Testing
 
 ```bash
 # Edit config.json to point "raw" at real data, then:
 python main.py
 ```
 
+## Citing
+
+If you use this App, please cite it, the software it builds on and brainlife.io:
+
+- Read info. brainlife.io App. [doi:10.25663/brainlife.app.817](https://doi.org/10.25663/brainlife.app.817)
+- Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013). [doi:10.3389/fnins.2013.00267](https://doi.org/10.3389/fnins.2013.00267)
+- Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+- Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+
 ## Authors
+
 - [Kamilya Salibayeva](https://github.com/KSalibay) (Indiana University)
 - [Maximilien Chaumon](https://github.com/dnacombo), Paris Brain Institute
 
-## Citations
+## Funding
 
-We kindly ask that you cite the following articles when publishing papers and code using this app:
+[![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
+[![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
+[![NIH-NINDS-UM1NS132207](https://img.shields.io/badge/NIH_NINDS-UM1NS132207-green.svg)](https://reporter.nih.gov/project-details/11411328)
+[![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://reporter.nih.gov/project-details/10262925)
+[![NIH-NIBIB-R01EB030896](https://img.shields.io/badge/NIH_NIBIB-R01EB030896-green.svg)](https://reporter.nih.gov/project-details/10428625)
+[![NIH-NIMH-R01MH126699](https://img.shields.io/badge/NIH_NIMH-R01MH126699-green.svg)](https://reporter.nih.gov/project-details/10460628)
+[![NIH-NIDCD-R01DC020088](https://img.shields.io/badge/NIH_NIDCD-R01DC020088-green.svg)](https://reporter.nih.gov/project-details/11140284)
+[![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1734853)
+[![NSF-BCS-2203524](https://img.shields.io/badge/NSF_BCS-2203524-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2203524)
+[![NSF-IIS-1636893](https://img.shields.io/badge/NSF_IIS-1636893-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1636893)
+[![NSF-OAC-2148729](https://img.shields.io/badge/NSF_OAC-2148729-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148729)
+[![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1912270)
+[![NSF-IIS-2148700](https://img.shields.io/badge/NSF_IIS-2148700-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148700)
+[![NSF-OAC-1916518](https://img.shields.io/badge/NSF_OAC-1916518-blue.svg)](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1916518)
 
-- Hayashi, S., Caron, B.A., Heinsfeld, A.S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809–813 (2024). https://doi.org/10.1038/s41592-024-02237-2
-- Gramfort, A. et al. MEG and EEG data analysis with MNE-Python. Front. Neurosci. 7, 267 (2013). https://doi.org/10.3389/fnins.2013.00267
-- Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). https://doi.org/10.1038/s41597-019-0073-y
-
-## Funding Acknowledgement
-
-brainlife.io is publicly funded and for the sustainability of the project it is helpful to acknowledge the use of the platform. We kindly ask that you acknowledge the funding below in your publications and code reusing this code.
-
-[![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1734853)
-[![NSF-BCS-1636893](https://img.shields.io/badge/NSF_BCS-1636893-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1636893)
-[![NSF-ACI-1916518](https://img.shields.io/badge/NSF_ACI-1916518-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1916518)
-[![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1912270)
-[![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://grantome.com/grant/NIH/R01-EB029272-01)
-[![NIH-NIBIB-R01EB030896](https://img.shields.io/badge/NIH_NIBIB-R01EB030896-green.svg)](https://grantome.com/grant/NIH/R01-EB030896-01)
+<sub>brainlife.io, which runs this App, is publicly funded by Wellcome, the U.S. National Institutes of Health and the U.S. National Science Foundation; acknowledging that support helps keep it running.</sub>
 
 ## License
 
-Copyright (c) 2026 MEEG Brainlife team. Licensed under AGPL-3.0, see [license.txt](license.txt).
+See [LICENSE](LICENSE).
